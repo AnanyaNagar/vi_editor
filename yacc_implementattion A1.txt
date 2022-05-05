@@ -1,0 +1,70 @@
+LEX
+%{
+#include<stdio.h>
+%}
+
+letter [_a-ZA-Z]
+digit [0-9]
+id fletter}({letter}|{digit}}*
+punch [,;" :!"]
+brack "{""}""[""]""("")"
+operator ["+-""-=""*=""/-"]
+space [\n\t]
+
+%%
+{digit} {printf("\n %s is an integer value\n", yytext);}
+"int"|"for"|"while"|"double"|"if"|"else"|"goto"|"float“ {printf("\n %s is a recognized keyword", yytext)}
+{id} {printf("\n %s is an identifier\n", yytext);}
+{punch} {printf("\n %s is a punctuation mark\n", yytext);}
+{space} {printf("\n %s is a white space\n", yytext);}
+{brack} {printf("\n %s is a bracket \n", yytext);}
+{operator} {printf("\n %s is a relational operator\n", yytext);}
+%% 
+
+int yywrap ()
+ {return 1;}
+void main()
+{
+printf ("\n Enterastring:");
+yylex();
+}
+
+_______________________________________________________
+
+YACC
+%{ 
+ /* Definition section */ 
+ #include <stdio.h> 
+%} 
+
+%token NUMBER ID 
+// setting the precedence 
+// and associativity of operators 
+%left '+' '-' 
+%left '*' '/' 
+/* Rule Section */
+%% 
+E : T { 
+printf("E-->T"); 
+  
+ } 
+T : 
+ T '+' T { printf("T-->T +T "); } 
+ | T '-' T { printf("T-->T -T "); } 
+ | T '*' T { printf("T-->T *T "); } 
+ | T '/' T { printf("T-->T / T "); }  
+ | '-' NUMBER { printf("T-->-NUMBER");} 
+ | '-' ID { printf("T-->-ID"); } 
+ | '(' T ')' { printf("T-->(T)"); } 
+ | NUMBER { printf("T-->NUMBER"); }  | ID { printf("T-->ID"); } 
+
+% %
+ 
+int main() { 
+printf("Enter the expression\n");  
+yyparse(); 
+} 
+/* For printing error messages */ 
+int yyerror(char* s) {
+printf("\nExpression is invalid\n"); 
+}
