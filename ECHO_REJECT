@@ -1,0 +1,25 @@
+%{
+%}
+
+%%
+
+[a-z]+ {
+        printf("\n Only lowercase : ");
+        ECHO;
+}
+[A-Z]+ {
+        printf("\n Only upper case : ");
+        ECHO;
+}
+[a-zA-Z]+ {
+        printf("\n Both lower and uppercase : ");
+        ECHO;
+        REJECT;
+}
+%%
+
+void main()
+{
+printf("Enter a string : ");
+yylex();
+}
