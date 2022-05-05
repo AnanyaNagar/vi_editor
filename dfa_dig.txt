@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void main()
+{
+        int initial_state=1,len,current_state=1;
+       char a,b,str[10];
+       printf("Enter string:");
+       scanf("%s",&str);
+       len=strlen(str);
+       if(len==3){
+       {        if(initial_state==1 && str[0]=='a')
+                       {current_state=2;}
+              else{
+                  printf("String is Rejected.");
+                  exit(0);
+                }
+        }
+       {        if(current_state==2 && str[1]=='b')
+                 {current_state=3;
+                 }
+              else
+              { printf("String is Rejected.");
+                     exit(0);
+              }
+        }
+{       if(current_state==3 && str[2]=='b')
+        {       current_state=4;
+                printf(" String is accepted");
+        }
+        else
+              {  printf("String is rejected.");
+                exit(0);
+              }
+}
+}

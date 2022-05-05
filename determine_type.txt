@@ -1,0 +1,22 @@
+%{
+#include<stdio.h>
+%}
+int [0-9]+
+signedint [+-][0-9]+
+float ([0-9]*[.])?[0-9]+
+signedfloat [+-]?[0-9]\.[0-9]+
+signedexpo [+-]?([0-9]*[.])?[0-9]+([eE][+-]?[0-9]+)?
+
+%%
+{int}* {printf("Integer\n");}
+{signedint}* {printf("Signed int\n");}
+{float}* {printf("Float\n");}
+{signedfloat}* {printf("Signed float\n");}
+{signedexpo}* {printf("Signed float expo");}
+%%
+int yywrap()
+{return 1;}
+void main()
+{printf("Enter a number: ");
+yylex();
+}

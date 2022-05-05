@@ -1,0 +1,33 @@
+%{
+#include<stdio.h>
+int flag, num, i;
+%}
+%%
+[0-9]+ {
+         num = atoi(yytext);
+         if(num==2){
+            printf("%d is a prime no.\n", num);
+        }
+         else if(num==0 || num==1){
+            printf("%d is not a prime no.\n", num);
+        }
+         else{
+            for(i=2;i<num;i++)
+                {
+                        if(num%i==0)
+                          flag=1;
+                }
+            if(flag==1)
+                printf("%d is not a prime no.\n", num);
+            else
+                printf("%d is a prime no.", num);
+        }
+}
+%%
+int yywrap()
+{return 1;}
+void main()
+{
+        printf("Enter a no.: ");
+        yylex();
+}
