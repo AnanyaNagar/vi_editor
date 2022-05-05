@@ -1,0 +1,37 @@
+%{
+%}
+
+%s SM SMBG
+
+%%
+
+# BEGIN(SM);
+## BEGIN(SMBG);
+
+[0-9]+ {printf("\n Contains only digits");}
+
+<SMBG>[A-Z]+ {printf("\n Contains Upper case letters");}
+
+<SM>. {
+        printf("\n Exiting from # start condition");
+        BEGIN(INITIAL);
+}
+
+<SM,SMBG>[a-z]+ {printf("\n Contains lower case letters");}
+
+<SMBG>.+ {printf("\n Exiting from ## start condition");}
+
+.+ {printf("\n No action executed!");}
+
+%%
+
+
+int yywrap()
+{return 1;}
+
+void main()
+{
+printf("\n Enter # when expecting digits or lower case letters");
+printf("\n Enter ## when expecting only lower case and uppercase letters");
+yylex();
+}
