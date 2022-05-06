@@ -1,0 +1,29 @@
+%{
+#include<stdio.h>
+int vow_count = 0;
+int const_count = 0;
+%}
+
+%%
+[a|e|i|o|u|A|E|I|O|U] {
+                        vow_count++;
+                        printf("You entered a vowel\n");
+}
+[a-zA-Z] {
+                        const_count++;
+                        printf("You entered a consonant\n");
+}
+"\n" {
+                        printf("Total vowels and consonants: %d, %d", vow_count, const_count);
+                        vow_count = 0;
+                        const_count = 0;
+}
+%%
+
+int yywrap(){}
+int main()
+{
+        printf("Enter a string: ");
+        yylex();
+        return 0;
+}

@@ -1,0 +1,33 @@
+%{
+#include <stdio.h>
+void display(int);
+%}
+
+%%
+[a|e|i|o|u|A|E|I|O|U] {
+                        int flag=1;
+                        display(flag);
+}
+.* {
+                        int flag = 0;
+                        display(flag);
+}
+%%
+void display(int flag)
+{
+        if(flag==1)
+        {
+           printf("\n%s is a vowel\n", yytext);
+        }
+        else
+        {
+           printf("\n%s is not a vowel\n",yytext);
+        }
+}
+int yywrap(){return 1;}
+int main()
+{
+        printf("Enter a character: ");
+        yylex();
+        return 0;
+}
